@@ -26,7 +26,7 @@ int testnum = 1;
 //----------------------------------------------------------------------
 
 void
-SimpleThread(int which)
+SimpleThread()
 {
     int num;
     
@@ -51,9 +51,9 @@ ThreadTest1()
     Thread *t2 = new Thread("forked thread");
     Thread *t3 = new Thread("forked thread");
 
-    t->Fork(SimpleThread, t1->getThreadID());
-    t->Fork(SimpleThread, t2->getThreadID());
-    t->Fork(SimpleThread, t3->getThreadID());
+    t1->Fork(SimpleThread, t1->getThreadID());
+    t2->Fork(SimpleThread, t2->getThreadID());
+    t3->Fork(SimpleThread, t3->getThreadID());
 
     SimpleThread();
 }
