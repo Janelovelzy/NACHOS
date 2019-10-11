@@ -38,9 +38,37 @@ Thread::Thread(char* threadName)
     stackTop = NULL;
     stack = NULL;
     status = JUST_CREATED;
+    uid = getUserID();
+    tid = allocatedThreadID();
+
 #ifdef USER_PROGRAM
     space = NULL;
 #endif
+}
+
+int Thread::getUserID() {
+    return uid;
+}
+
+int Thread::getThreadID() {
+    return tid;
+}
+
+int allocatedThreadID() {
+    int id = 256;
+    for (int i = 1; i < MaxThread; ++i) {
+        if (threadIDs[i] == 0) {
+            id = i;
+            break;
+        }
+    }
+    if (id < MaxThread) {
+        threadIDs[id] = 1;
+        return id;
+    }
+    else{
+        return -1;
+    }
 }
 
 //----------------------------------------------------------------------
@@ -62,6 +90,7 @@ Thread::~Thread()
     ASSERT(this != currentThread);
     if (stack != NULL)
 	DeallocBoundedArray((char *) stack, StackSize * sizeof(int));
+    threadIDs[threadID]=0;
 }
 
 //----------------------------------------------------------------------

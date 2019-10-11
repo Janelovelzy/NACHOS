@@ -16,6 +16,9 @@
 #include "stats.h"
 #include "timer.h"
 
+#define MaxThread 256
+extern int threadIDs[MaxThread];
+
 // Initialization and cleanup routines
 extern void Initialize(int argc, char **argv); 	// Initialization,
 						// called before anything else

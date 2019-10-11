@@ -81,6 +81,10 @@ Initialize(int argc, char **argv)
     char* debugArgs = "";
     bool randomYield = FALSE;
 
+    for (int i = 0; i < MaxThread; ++i) {
+        threadIDs[i] = 0;
+    }
+
 #ifdef USER_PROGRAM
     bool debugUserProg = FALSE;	// single step user program
 #endif
