@@ -74,6 +74,7 @@ TimerInterruptHandler(int dummy)
 //	"argv" is an array of strings, one for each command line argument
 //		ex: "nachos -d +" -> argv = {"nachos", "-d", "+"}
 //----------------------------------------------------------------------
+int threadIDs[MaxThread];
 void
 Initialize(int argc, char **argv)
 {

@@ -16,7 +16,7 @@
 #include "stats.h"
 #include "timer.h"
 
-#define MaxThread 256
+#define MaxThread 128
 extern int threadIDs[MaxThread];
 
 // Initialization and cleanup routines
