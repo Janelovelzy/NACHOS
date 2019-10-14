@@ -31,8 +31,8 @@ SimpleThread()
     int num;
     
     for (num = 0; num < 5; num++) {
-	printf("*** thread name %s uid %d tid %d looped %d times\n", currentThread->getName(),currentThread->getUserID(),currentThread->getThreadID(),num);
-        currentThread->Yield();
+	printf("*** thread name %s uid %d priority %d looped %d times\n", currentThread->getName(),currentThread->getUserID(),currentThread->getPriority(),num);
+        //currentThread->Yield();
     }
 }
 
@@ -47,9 +47,9 @@ ThreadTest1()
 {
     DEBUG('t', "Entering ThreadTest1");
 
-    Thread *t1 = new Thread("forked thread");
-    Thread *t2 = new Thread("forked thread");
-    Thread *t3 = new Thread("forked thread");
+    Thread *t1 = new Thread("forked thread",7);
+    Thread *t2 = new Thread("forked thread",2);
+    Thread *t3 = new Thread("forked thread",4);
 
     t1->Fork(SimpleThread, t1->getThreadID());
     t2->Fork(SimpleThread, t2->getThreadID());
@@ -57,6 +57,29 @@ ThreadTest1()
 
     SimpleThread();
 }
+
+void p1(){
+	int num = 0;
+	 for (num = 0; num < 5; num++) {       
+	       printf("*** thread name %s uid %d priority %d looped %d times\n", currentThread->getName(),currentThread->getUserID(),currentThread->getPriority(),num);
+	       if (num == 0) {
+		  Thread *t2 = new Thread("Thread2",2);
+ 		  t2->Fork(SimpleThread,1);
+		}
+	}
+    }
+
+
+void ThreadPriority(){
+	Thread *t1 = new Thread("Thread1" ,7);
+        t1->Fork(p1,1);
+}
+
+
+
+
+
+
 
 //----------------------------------------------------------------------
 // ThreadTest
@@ -69,6 +92,9 @@ ThreadTest()
     switch (testnum) {
     case 1:
 	ThreadTest1();
+	break;
+    case 2:
+	ThreadPriority();
 	break;
     default:
 	printf("No test specified.\n");

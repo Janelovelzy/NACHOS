@@ -219,11 +219,16 @@ Thread::Yield ()
     ASSERT(this == currentThread);
     
     DEBUG('t', "Yielding thread \"%s\"\n", getName());
-    
+    /*
     nextThread = scheduler->FindNextToRun();
     if (nextThread != NULL) {
 	scheduler->ReadyToRun(this);
 	scheduler->Run(nextThread);
+    } */
+    scheduler->ReadyToRun(this);
+    nextThread = scheduler->FindNextToRun();
+    if (nextThread != NULL) {
+    scheduler->Run(nextThread);
     }
     (void) interrupt->SetLevel(oldLevel);
 }
