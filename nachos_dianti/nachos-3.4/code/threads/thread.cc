@@ -49,7 +49,7 @@ int allocatedThreadID() {
     }
 }
 
-Thread::Thread(char* threadName)
+Thread::Thread(char* threadName,int p)
 {
     name = threadName;
     stackTop = NULL;
@@ -57,6 +57,10 @@ Thread::Thread(char* threadName)
     status = JUST_CREATED;
     uid = getUserID();
     tid = allocatedThreadID();
+    if (p < 0) {priority = 0;}
+    else if (p > 8) {priority = 8;}
+    else {priority = p;}
+    
 
 #ifdef USER_PROGRAM
     space = NULL;
@@ -69,6 +73,10 @@ int Thread::getUserID() {
 
 int Thread::getThreadID() {
     return tid;
+}
+
+int Thread::getPriority() {
+    return priority;
 }
 
 
