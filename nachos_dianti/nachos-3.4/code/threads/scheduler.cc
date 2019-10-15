@@ -29,7 +29,8 @@
 
 Scheduler::Scheduler()
 { 
-    readyList = new List; 
+    readyList = new List;
+    lastSwitchTick = stats->systemTicks; 
 } 
 
 //----------------------------------------------------------------------
@@ -49,6 +50,12 @@ Scheduler::~Scheduler()
 //
 //	"thread" is the thread to be put on the ready list.
 //----------------------------------------------------------------------
+
+int Scheduler::getLastSwitchTick(){
+	return lastSwitchTick;
+}
+
+
 
 void
 Scheduler::ReadyToRun (Thread *thread)
